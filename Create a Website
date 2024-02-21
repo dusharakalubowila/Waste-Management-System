@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            background: #fff;
+            z-index: 1000;
+        }
+        .bins-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 100px; /* Adjusted to account for header height */
+        }
+        .bin-container {
+            text-align: center;
+            margin: 0 20px;
+        }
+        .content-section {
+            display: none;
+        }
+        .active-content {
+            display: block;
+        }
+        .bin-level {
+            width: 150px;
+            height: 300px;
+            background-color: #e0e0e0;
+            margin: 10px auto;
+            position: relative;
+            border: 3px solid #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .bin-fill {
+            background-color: #4caf50;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            transition: height 0.5s ease-in-out;
+        }
+        .bin-label {
+            margin-top: 10px;
+        }
+        #notifications {
+            position: fixed;
+            top: 100px; /* Adjusted to account for header height */
+            right: 0;
+            width: 200px;
+            background-color: #fff;
+            border-left: 1px solid #ccc;
+            box-shadow: -1px 0 5px rgba(0,0,0,0.1);
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            z-index: 1000; /* Ensure it's above other content */
+        }
+        .notification {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .notification:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Waste Management System</h1>
+    </div>
+    <br><br><br><br><br><br><br><br><br>
+    <div id="menuBar">
+        <ul>
+            <li onclick="switchContent('history')">History</li>
+            <li onclick="switchContent('trash-levels')">Trash Level Records</li>
+            <li onclick="switchContent('contact')">Contact Details</li>
+        </ul>
+    </div>
+    <div id="content">
+        <div id="history" class="content-section">
+            <h2>History</h2>
+            <!-- History content goes here -->
+        </div>
+        <div id="trash-levels" class="content-section">
+            <h2>Trash Level Records</h2>
+            <!-- Trash level records content goes here -->
+        </div>
+        <div id="contact" class="content-section">
+            <h2>Contact Details</h2>
+           <body>Dushara Kalubowila <br> A/368, Kandy Road, <br> Nugegoda, Sigi<br>
+            adkalubowila@gmail.com</body>
+        </div>
+    </div>
+    <div class="bins-container">
+        <div class="bin-container">
+            <div id="bin1" class="bin-level">
+                <div class="bin-fill" style="height: 0%;"></div>
+            </div>
+            <div class="bin-label">Recycle Bin 1</div>
+        </div>
+
+        <div class="bin-container">
+            <div id="bin2" class="bin-level">
+                <div class="bin-fill" style="height: 0%;"></div>
+            </div>
+            <div class="bin-label">Recycle Bin 2</div>
+        </div>
+    </div>
+
+    <div id="notifications">
+        <!-- Notifications will be dynamically inserted here -->
+    </div>
+
+    <script>
+         // Function to switch content sections
+         function switchContent(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active-content');
+            });
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active-content');
+            }
+        }
+        // Function to simulate fetching bin data
+        function fetchBinData() {
+            return [Math.random() * 100, Math.random() * 100];
+        }
+    
+        // Function to add a notification
+        function addNotification(binId, message) {
+            const notificationsContainer = document.getElementById('notifications');
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.id = 'notification-' + binId; // Assign an ID to the notification for later reference
+            notification.innerText = message;
+            notificationsContainer.appendChild(notification);
+        }
+    
+        // Function to remove a notification
+        function removeNotification(binId) {
+            const notificationToRemove = document.getElementById('notification-' + binId);
+            if (notificationToRemove) {
+                notificationToRemove.remove();
+            }
+        }
+    
+        // Function to update bin levels and manage notifications
+        function updateBinLevels() {
+            const binData = fetchBinData();
+            const bins = document.querySelectorAll('.bin-level');
+            bins.forEach((bin, index) => {
+                const newLevel = binData[index];
+                const fill = bin.querySelector('.bin-fill');
+                const binId = 'bin' + (index + 1); // Unique identifier for each bin
+                fill.style.height = `${newLevel}%`;
+    
+                // If the level is above 75%, add a notification if it hasn't been notified
+                if (newLevel >= 75 && !document.getElementById('notification-' + binId)) {
+                    addNotification(binId, `Recycle Bin ${index + 1} is ${newLevel.toFixed(0)}% full. Please empty it.`);
+                } else if (newLevel < 75) {
+                    // If the level is below 75%, remove the notification
+                    removeNotification(binId);
+                }
+            });
+        }
+    
+        // Update bin levels every 5 seconds
+        setInterval(updateBinLevels, 5000);
+    
+        // Initial update
+        updateBinLevels();
+    </script>
+    
