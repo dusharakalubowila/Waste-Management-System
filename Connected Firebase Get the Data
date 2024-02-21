@@ -1,0 +1,26 @@
+// Initialize Firebase with your Firebase project config
+        var firebaseConfig = {
+            apiKey: "AIzaSyCovM4ZpEud5-tGXhHYhGTKNVk4aYhQWXQ",
+            authDomain: "polytunnel-project-6.firebaseapp.com",
+            databaseURL: "https://polytunnel-project-6-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            projectId: "polytunnel-project-6",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        // Reference to your Firebase database
+        var db = firebase.database();
+
+        // Listen for changes in real-time data and update the webpage
+        db.ref("Sensor").on("value", function (snapshot) {
+            var data = snapshot.val();
+            if (data) {
+                updateBinLevel('bin1', data.bin1Level);
+                updateBinLevel('bin2', data.bin2Level);
+            }
+        });
+
+        function updateBinLevel(binId, level) {
+            const bin = document.getElementById(binId);
+            const fill = bin.querySelector('.bin-fill');
+            fill.style.height = `${level}%`;
