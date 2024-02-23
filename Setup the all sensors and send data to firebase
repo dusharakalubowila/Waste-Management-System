@@ -1,0 +1,60 @@
+#include <WiFi.h>
+#include <FirebaseESP32.h>
+#include "NewPing.h"
+
+// Define Firebase Data object
+FirebaseData firebaseData;
+
+// Define Firebase Authentication object
+FirebaseAuth auth;
+
+// Define Firebase Configuration object
+FirebaseConfig config;
+
+// Replace with your network credentials
+const char* ssid = "iPhone";
+const char* password = "12345678";
+
+// Correct your Firebase project details
+const char* FIREBASE_HOST = "noname-e757f-default-rtdb.firebaseio.com"; // Just the domain
+const char* FIREBASE_AUTH = "yourFirebaseDatabaseSecret"; // Database secret, not URL
+
+// Ultrasonic sensor pins
+#define TRIG_PIN 12
+#define ECHO_PIN 13
+#define MAX_DISTANCE 30 // Maximum distance we want to ping for (in centimeters)
+
+// Initialize the NewPing and Firebase library
+NewPing sonar(TRIG_PIN, ECHO_PIN, MAX_DISTANCE);
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Connect to Wi-Fi
+  WiFi.begin("iPhone", "12345678");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.println("Connecting to WiFi..");
+  }
+
+  // Set up Firebase
+  config.host = FIREBASE_HOST;
+  config.signer.tokens.legacy_token = FIREBASE_AUTH;
+
+  // Connect to Firebase
+  Firebase.begin(&config, &auth);
+}
+
+void loop() {
+  // Get the actual distance from the ultrasonic sensor
+  long bin1 = sonar.ping_cm();
+  
+  // Send this distance to Firebase
+  if (Firebase.setInt(firebaseData, "/binData/bin1", bin1)) {
+    Serial.println("Distance data sent to Firebase");
+  } else {
+    Serial.println("Failed to send data to Firebase");
+  }
+
+  delay(1000); // Wait for 1 second before sending the next value
+}
