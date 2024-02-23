@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px; /* Reduced padding */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+header img {
+    margin-right: 20px; /* Space between logo and title */
+}
+header h1 {
+    margin: 0;
+    font-size: 24px; /* Adjusted font size */
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: #f0f0f0;
+    padding: 10px 0;
+}
+
+nav button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+nav button:hover {
+    background-color: #45a049;
+}
+
+.content {
+    padding: 20px;
+}
+
+.content-section {
+    display: none;
+}
+
+.active-content {
+    display: block;
+}
+
+.bins-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.bin-container {
+    text-align: center;
+}
+
+.bin-level {
+    width: 150px; /* Increased width */
+    height: 300px; /* Increased height */
+    background-color: #e0e0e0;
+    border: 3px solid #333;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Added shadow */
+    position: relative;
+}
+
+.bin-fill {
+    background-color: #4caf50;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-bottom-left-radius: 7px; /* Rounded bottom corners */
+    border-bottom-right-radius: 7px; /* Rounded bottom corners */
+    transition: height 0.5s ease-in-out; /* Smooth transition */
+}
+
+.bin-label {
+    margin-top: 10px;
+}
+
+.bin-depth-section {
+    text-align: center;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.input-field {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.update-bin-depth-container {
+    margin-top: 20px;
+}
+footer {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+/* Container for bin depth and notifications */
+.bin-depth-section {
+    text-align: center;
+    position: relative; /* Set to relative to position children absolutely within it */
+    padding-bottom: 50px; /* Add space for the notification */
+}
+
+#notifications {
+    position: fixed;
+    bottom: 200px;
+    right: 110px; /* Adjusted to 20px from the right edge */
+    width: 600px;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #f44336; /* Red background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.notification {
+    margin-bottom: 10px; /* Space between notifications */
+    padding: 5px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+
+
