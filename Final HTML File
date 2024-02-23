@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waste Management System</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="pic/Abstract Human Tech Ai Company Free Logo (1).png" alt="Company Logo" width="100" height="100">
+        <h1>Waste Management System</h1>
+    </header>
+    <nav>
+        <button onclick="switchContent('home')"><i class="fas fa-home"></i>Home</button>
+        <button onclick="switchContent('history')"><i class="fas fa-history"></i>History</button>
+        <button onclick="switchContent('trash-level-records')"><i class="fas fa-chart-bar"></i>Trash Level Records</button>
+        <button onclick="switchContent('contact-details')"><i class="fas fa-address-book"></i>Contact Details</button>
+    </nav>
+    <main class="content">
+        <section id="home" class="content-section active-content">
+            <h2>Home</h2>
+            <div class="bins-container">
+                <div class="bin-container">
+                    <div id="bin1" class="bin-level">
+                        <div class="bin-fill" style="height: 0%;"></div>
+                    </div>
+                    <div class="bin-label">Recycle Bin 1</div>
+                </div>
+                <div class="bin-container">
+                    <div id="bin2" class="bin-level">
+                        <div class="bin-fill" style="height: 0%;"></div>
+                    </div>
+                    <div class="bin-label">Recycle Bin 2</div>
+                </div>
+                <!-- Bin depth identification and maximum depth update section -->
+                <div class="bin-depth-section">
+                    <button id="identifyBinDepth" class="btn">Identify Bin Depth</button>
+                    <div id="binDepthDisplay" class="bin-depth-display">Bin Depth: -- cm</div>
+                    <div class="update-bin-depth-container">
+                        <label for="newBinDepth">Enter New Bin Maximum Depth (cm): </label>
+                        <input type="number" id="newBinDepth" min="0" class="input-field">
+                        <button id="updateBinDepth" class="btn">Update Bin Depth</button>
+                    </div>
+                </div>
+            </div>
+            <div id="notifications">
+                <!-- Notifications will be dynamically inserted here -->
+            </div>
+            
+        </section>
+        <section id="history" class="content-section">
+            <h2>History</h2>
+            <div id="binHistory">
+                <!-- Bin history will be displayed here -->
+            </div>
+        </section>
+        <section id="trash-level-records" class="content-section">
+            <h2>Trash Level Records</h2>
+            <p>This section will contain records of the trash levels over time. Data can be presented in a table or graph format.</p>
+            <canvas id="binDataChart"></canvas>
+            <div>Trash Level: <span id="trashlevel">0%</span></div>
+        </section>
+        <section id="contact-details" class="content-section">
+            <h2>Contact Details</h2>
+            <p>For service requests or more information, please contact us:</p>
+            <address>
+                <strong>Brain Tech Solutions Inc.</strong><br>
+                Kandy Innovation Center<br>
+                Kandy, Sri Lanka.<br>
+                <abbr title="Phone">Phone Num :</abbr>  +94786822133<br>
+                <abbr title="Email">Email :</abbr> <a href="mailto:support@adkalubowila@gmail.com">adkalubowila@gmail.com</a>
+            </address>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Brain Tech Solutions Project. All rights reserved.</p>
+    </footer>
+    <div id="notifications">
+        <!-- Notifications will be dynamically inserted here -->
+    </div>
+    <script src="script4.js"></script>
+</body>
+</html>
