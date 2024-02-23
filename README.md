@@ -22,13 +22,22 @@ The Smart Automated Dustbin with Waste Management System is an innovative soluti
 
 ### Installation
 
-1. Clone the repository:
+A step-by-step series of instructions that tell you how to get a development environment running.
 
-2. Assemble the hardware components based on the provided schematics.
+Step 1: Set up Firebase Realtime Database
+Go to the Firebase console and create a new project.
+Set up the Realtime Database in your Firebase project.
+Note down your Firebase project credentials.
 
-3. Upload the provided code to the microcontroller.
+Step 2: Set up the Sensors and Send Data to Firebase
+Use the "Setup the all sensors and send data to firebase" file to set up your ESP32 and connect it to the Realtime Database.
+Make sure your sensors are properly connected to the ESP32.
+The code will send sensor data to the Firebase Realtime Database.
 
-4. Set up the communication module for remote monitoring (optional).
+Step 3: Set up the Web App
+Open the "Final HTML File" which is connected with "style.css" and "script4.js".
+Make sure the script is properly configured to retrieve data from your Firebase Realtime Database.
+Host these files on a web server or open them in a web browser to view the final output.
 
 ## Usage
 
